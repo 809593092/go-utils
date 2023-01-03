@@ -3,6 +3,7 @@ package hash
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 )
 
 /**
@@ -20,5 +21,5 @@ func StringMd5(s string) string {
 }
 
 func Number() {
-
+	fmt.Println("hans number is run")
 }
