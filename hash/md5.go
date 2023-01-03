@@ -18,3 +18,7 @@ func StringMd5(s string) string {
 	md5S.Write([]byte(s))
 	return hex.EncodeToString(md5S.Sum(nil))
 }
+
+func Number() {
+
+}
