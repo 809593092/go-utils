@@ -2,15 +2,16 @@ package library
 
 import (
 	"errors"
-	"fmt"
+
 	"github.com/golang-jwt/jwt/v4"
 )
 
-const mySigningKey = "e10adc3949ba59abbe56e057f20f883e"
+// const mySigningKey = "e10adc3949ba59abbe56e057f20f883e"
 
 // EncodeToken 加密token
+// @param key 加密的key
 // @param mapClaims要加密的数据map
-func EncodeToken(mapClaims jwt.MapClaims) (string, error) {
+func EncodeToken(mySigningKey string, mapClaims jwt.MapClaims) (string, error) {
 	// 创建
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, mapClaims)
 
@@ -18,7 +19,7 @@ func EncodeToken(mapClaims jwt.MapClaims) (string, error) {
 }
 
 // DecodeToken 解密Token字符串
-func DecodeToken(tokenStr string) (jwt.MapClaims, error) {
+func DecodeToken(mySigningKey string, tokenStr string) (jwt.MapClaims, error) {
 
 	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
 
@@ -32,16 +33,16 @@ func DecodeToken(tokenStr string) (jwt.MapClaims, error) {
 		return nil, err
 	}
 
-	if token.Valid {
-		fmt.Println("You look nice today")
-	} else if errors.Is(err, jwt.ErrTokenMalformed) {
-		fmt.Println("That's not even a token")
-	} else if errors.Is(err, jwt.ErrTokenExpired) || errors.Is(err, jwt.ErrTokenNotValidYet) {
-		// Token is either expired or not active yet
-		fmt.Println("Timing is everything")
-	} else {
-		fmt.Println("Couldn't handle this token:", err)
-	}
+	// if token.Valid {
+	// 	fmt.Println("You look nice today")
+	// } else if errors.Is(err, jwt.ErrTokenMalformed) {
+	// 	fmt.Println("That's not even a token")
+	// } else if errors.Is(err, jwt.ErrTokenExpired) || errors.Is(err, jwt.ErrTokenNotValidYet) {
+	// 	// Token is either expired or not active yet
+	// 	fmt.Println("Timing is everything")
+	// } else {
+	// 	fmt.Println("Couldn't handle this token:", err)
+	// }
 
 	// 验证token
 	if !token.Valid {
